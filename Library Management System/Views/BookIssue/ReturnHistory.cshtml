@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DatabaseLayer.BookIssueTable>
+
+@{
+    ViewBag.Title = "Returned Book History";
+}
+
+<div>
+    @{Html.BeginForm("ExportReturned", "BookIssue", FormMethod.Get);
+        {
+            <div>
+                <input type="submit" value="Download Excel" class="btn btn-outline-warning" />
+            </div>
+        }
+        Html.EndForm();
+    }
+
+</div>
+<hr />
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Return History List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">
+                            Book ID
+                        </th>
+                        <th style="text-align:center">
+                            Book Name
+                        </th>
+                        <th style="text-align:center">
+                            EPF
+                        </th>
+                        <th style="text-align:center">
+                            Employee Name
+                        </th>
+                        <th style="text-align:center">
+                            Issue date
+                        </th>
+                        <th style="text-align:center">
+                            Return Date
+                        </th>
+
+                        <th style="text-align:center">
+                            Collect Date
+                        </th>
+
+                        <th style="text-align:center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BooksTable.BookName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_EPFNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IssueDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.CollectDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "CollectDetails", new { id = item.IBID }, new { @class = "btn btn-info" })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DatabaseLayer.BookTypesTable>
+
+@{
+    ViewBag.Title = "Book Types";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New Type", "Create", null, new { @class="btn btn-success"})
+</p>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Book Types List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Book Type ID
+                        </th>
+                        <th>
+                          Book Type
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookTypeID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookType)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.BookTypeID }, new { @class = "btn btn-primary" })
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

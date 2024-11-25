@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ef0f45f67c5e4325b7f631e4ef0fd42f" Name="Diagram1">
+        <EntityTypeShape EntityType="CMPK_LMSModel.BookIssueTable" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.BooksTable" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.BookTypesTable" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.EmployeeHRM" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.sysdiagram" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.UserTable" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.UserTypesTable" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="CMPK_LMSModel.FK_BookIssueTable_BooksTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CMPK_LMSModel.FK_BookIssueTable_EmployeeHRMS" ManuallyRouted="false" />
+        <AssociationConnector Association="CMPK_LMSModel.FK_BooksTable_BooksTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CMPK_LMSModel.FK_BooksTable_BookTypesTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CMPK_LMSModel.FK_BooksTable_UserTable" ManuallyRouted="false" />
+        <AssociationConnector Association="CMPK_LMSModel.FK_UserTable_UserTypesTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.AllissueBook" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.Booksview" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.Returned" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CMPK_LMSModel.ReturnPending" Width="1.5" PointX="6.75" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DatabaseLayer.UserTypesTable>
+
+@{
+    ViewBag.Title = "User Rolls";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class="btn btn-success"})
+</p>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">User Roll List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                           User Roll ID
+                        </th>
+                        <th>
+                           User Roll
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserTypeID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserType)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.UserTypeID }, new { @class="btn btn-primary"})
+                                @Html.ActionLink("Delete", "Delete", new { id = item.UserTypeID }, new { @class="btn btn-danger"})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+</div>

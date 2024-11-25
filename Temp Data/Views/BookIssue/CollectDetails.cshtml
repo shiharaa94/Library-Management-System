@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DatabaseLayer.BookIssueTable>
+
+@{
+    ViewBag.Title = "Collected Details";
+}
+
+<div class="card shadow mb-4">
+    
+    <div class="card-body table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    Book ID
+                </th>
+                <th>
+                    Book Name
+                </th>
+                <th>
+                    Book Price (RS)
+                </th>
+                <th>
+                    Employee EPF
+                </th>
+                <th>
+                    Employee Name
+                </th>
+                <th>
+                    Issue Date
+                </th>
+                <th>
+                    Return Date
+                </th>
+                <th>
+                    Collect Date
+                </th>
+                <th>
+                    Issued By
+                </th>
+                <th>
+                    Collected By
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BooksTable.BookName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BooksTable.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_EPFNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IssueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReturnDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CollectDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Issueby)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Collectby)
+                    </td>
+                </tr>
+
+            }
+        </table>
+        </div>
+    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                @Html.ActionLink("Back to List", "ReturnHistory", null, new { @class = "btn btn-default" })
+            </div>
+        </div>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DatabaseLayer.BookIssueTable>
+
+
+@{
+    ViewBag.Title = "Book Issue";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Issued Book Detail</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">
+                            Book ID
+                        </th>
+                        <th style="text-align:center">
+                            Book Name
+                        </th>
+                        <th style="text-align:center">
+                            Book Price (RS)
+                        </th>
+                        <th style="text-align:center">
+                            Employee EPF
+                        </th>
+                        <th style="text-align:center">
+                            Employee Name
+                        </th>
+                        <th style="text-align:center">
+                            Issued Date
+                        </th>
+                        <th style="text-align:center">
+                            Return Date
+                        </th>
+                        <th style="text-align:center">
+                            Issued By
+                        </th>
+
+                        <th style="text-align:center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BooksTable.BookID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BooksTable.BookName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BooksTable.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_EPFNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IssueDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Issueby)
+                            </td>
+                            <td>
+                                @if (item.Status == false)
+                                {
+                                    @Html.ActionLink("Return", "Edit", new { id = item.IBID }, new { @class = "btn btn-primary" })
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+
+        @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-default" })
+    </div>
+</div>

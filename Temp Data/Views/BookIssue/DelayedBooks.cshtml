@@ -1,0 +1,79 @@
+﻿@model IEnumerable<DatabaseLayer.BookIssueTable>
+
+@{
+    ViewBag.Title = "DelayedBooks";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Delayed Books List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Book ID
+                        </th>
+                        <th>
+                           Book Name
+                        </th>
+                        <th>
+                           Employee EPF
+                        </th>
+                        <th>
+                           Employee Name
+                        </th>
+                        <th>
+                           Issue Date
+                        </th>
+                        <th>
+                           Return Date
+                        </th>
+                        <th>
+                           Delayed Dates
+                        </th>
+                       
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BooksTable.BookName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EMP_EPFNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeHRM.EMP_Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IssueDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            </td>
+                            <td class="text-danger " style="text-align:center">
+                                @((DateTime.Today - item.ReturnDate).TotalDays.ToString())
+                            </td>
+                           
+                            <td>
+                                @Html.ActionLink("Return", "Edit", new { id = item.IBID }, new { @class="btn btn-info"}) 
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

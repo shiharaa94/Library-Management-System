@@ -1,0 +1,96 @@
+﻿@model IEnumerable<DatabaseLayer.BooksTable>
+
+@{
+    ViewBag.Title = "Books";
+}
+
+<div class="btn-group">
+    <div>
+        @Html.ActionLink("New Book", "Create", null, new { @class = "btn btn-success" })
+
+    </div>
+    
+    <div>
+        @{Html.BeginForm("ExportDataToExcel", "Books", FormMethod.Get);
+            {
+                <div>
+                    <input type="submit" value="Download Excel" class="btn btn-outline-warning" />
+                </div>
+            }
+            Html.EndForm();
+        }
+
+    </div>
+</div>
+
+<br />
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Books List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">
+                            Book ID
+                        </th>
+                        <th style="text-align:center">
+                            Book Name
+                        </th>
+                        <th style="text-align:center">
+                            Author
+                        </th>
+                        <th style="text-align:center">
+                            Price (RS)
+                        </th>
+
+                        <th style="text-align:center">
+                            Availability
+                        </th>
+                        <th style="text-align:center">
+                            Book Type
+                        </th>
+                        <th style="text-align:center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Availability)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookTypesTable.BookType)
+                            </td>
+
+                            <td class="btn-group">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.BookID }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Details", "Details", new { id = item.BookID }, new { @class = "btn btn-info" })
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

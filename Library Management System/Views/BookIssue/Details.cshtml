@@ -1,0 +1,82 @@
+﻿@model DatabaseLayer.BookIssueTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BookIssueTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CollectDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CollectDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Collectby)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Collectby)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issueby)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issueby)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BooksTable.BookName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BooksTable.BookName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeHRM.EID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeHRM.EID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IBID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DatabaseLayer.BooksTable>
+
+@{
+    ViewBag.Title = "Books Details";
+}
+
+
+       
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">
+                            Book ID
+                        </th>
+                        <th style="text-align:center">
+                            Book Name
+                        </th>
+                        <th style="text-align:center">
+                            Author
+                        </th>
+                        <th style="text-align:center">
+                            Price (RS)
+                        </th>
+                        <th style="text-align:center">
+                            Donated By
+                        </th>
+                        <th style="text-align:center">
+                            Availability
+                        </th>
+                        <th style="text-align:center">
+                            Book Type
+                        </th>
+                        <th style="text-align:center">
+                            User Name
+                        </th>
+                        <th style="text-align:center">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DonatedBy)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.Availability)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookTypesTable.BookType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserTable.UserName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.BookID })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="col-md-offset-2 col-md-10">
+                
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+            </div>
+      
+  

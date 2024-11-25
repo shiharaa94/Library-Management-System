@@ -1,0 +1,801 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CMPK_LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookIssueTable">
+          <Key>
+            <PropertyRef Name="IBID" />
+          </Key>
+          <Property Name="IBID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="EMP_EPFNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="ReturnDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CollectDate" Type="date" />
+          <Property Name="Collectby" Type="nvarchar" MaxLength="50" />
+          <Property Name="Issueby" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BooksTable">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BookTypeID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="DonatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Availability" Type="bit" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookTypesTable">
+          <Key>
+            <PropertyRef Name="BookTypeID" />
+          </Key>
+          <Property Name="BookTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeHRMS">
+          <Key>
+            <PropertyRef Name="EMP_EPFNo" />
+          </Key>
+          <Property Name="EID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="EMP_EPFNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMP_SECID" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTypesTable">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMPK_LMS.dbo.AllissueBooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AllissueBooks">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="EMP_EPFNo" />
+            <PropertyRef Name="EMP_Name" />
+            <PropertyRef Name="IssueDate" />
+            <PropertyRef Name="ReturnDate" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BookType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="DonatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMP_EPFNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="ReturnDate" Type="date" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Collect_Status" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMPK_LMS.dbo.Booksview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Booksview">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BookType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="DonatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Available" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMPK_LMS.dbo.Returned' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Returned">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="EMP_EPFNo" />
+            <PropertyRef Name="EMP_Name" />
+            <PropertyRef Name="IssueDate" />
+            <PropertyRef Name="ReturnDate" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BookType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="DonatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMP_EPFNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="ReturnDate" Type="date" Nullable="false" />
+          <Property Name="CollectDate" Type="date" />
+          <Property Name="Issueby" Type="nvarchar" MaxLength="50" />
+          <Property Name="Collectby" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMPK_LMS.dbo.ReturnPending' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReturnPending">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="IssueDate" />
+            <PropertyRef Name="ReturnDate" />
+            <PropertyRef Name="EMP_EPFNo" />
+            <PropertyRef Name="EMP_Name" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BookType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="DonatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="ReturnDate" Type="date" Nullable="false" />
+          <Property Name="EMP_EPFNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookIssueTable_BooksTable">
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="1" />
+          <End Role="BookIssueTable" Type="Self.BookIssueTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BooksTable">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="BookIssueTable">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookIssueTable_EmployeeHRMS">
+          <End Role="EmployeeHRMS" Type="Self.EmployeeHRMS" Multiplicity="1" />
+          <End Role="BookIssueTable" Type="Self.BookIssueTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHRMS">
+              <PropertyRef Name="EMP_EPFNo" />
+            </Principal>
+            <Dependent Role="BookIssueTable">
+              <PropertyRef Name="EMP_EPFNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BooksTable_BooksTable">
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="1" />
+          <End Role="BooksTable1" Type="Self.BooksTable" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BooksTable">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="BooksTable1">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BooksTable_BookTypesTable">
+          <End Role="BookTypesTable" Type="Self.BookTypesTable" Multiplicity="1" />
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookTypesTable">
+              <PropertyRef Name="BookTypeID" />
+            </Principal>
+            <Dependent Role="BooksTable">
+              <PropertyRef Name="BookTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BooksTable_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="1" />
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BooksTable">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_UserTypesTable">
+          <End Role="UserTypesTable" Type="Self.UserTypesTable" Multiplicity="1" />
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypesTable">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CMPK_LMSModelStoreContainer">
+          <EntitySet Name="BookIssueTable" EntityType="Self.BookIssueTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BooksTable" EntityType="Self.BooksTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookTypesTable" EntityType="Self.BookTypesTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeHRMS" EntityType="Self.EmployeeHRMS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTypesTable" EntityType="Self.UserTypesTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllissueBooks" EntityType="Self.AllissueBooks" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AllissueBooks].[BookID] AS [BookID], 
+    [AllissueBooks].[BookName] AS [BookName], 
+    [AllissueBooks].[Author] AS [Author], 
+    [AllissueBooks].[BookType] AS [BookType], 
+    [AllissueBooks].[Price] AS [Price], 
+    [AllissueBooks].[DonatedBy] AS [DonatedBy], 
+    [AllissueBooks].[EMP_EPFNo] AS [EMP_EPFNo], 
+    [AllissueBooks].[EMP_Name] AS [EMP_Name], 
+    [AllissueBooks].[IssueDate] AS [IssueDate], 
+    [AllissueBooks].[ReturnDate] AS [ReturnDate], 
+    [AllissueBooks].[UserName] AS [UserName], 
+    [AllissueBooks].[Collect_Status] AS [Collect_Status]
+    FROM [dbo].[AllissueBooks] AS [AllissueBooks]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Booksview" EntityType="Self.Booksview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Booksview].[BookID] AS [BookID], 
+    [Booksview].[BookName] AS [BookName], 
+    [Booksview].[Author] AS [Author], 
+    [Booksview].[BookType] AS [BookType], 
+    [Booksview].[Price] AS [Price], 
+    [Booksview].[DonatedBy] AS [DonatedBy], 
+    [Booksview].[Available] AS [Available], 
+    [Booksview].[UserName] AS [UserName]
+    FROM [dbo].[Booksview] AS [Booksview]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Returned" EntityType="Self.Returned" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Returned].[BookID] AS [BookID], 
+    [Returned].[BookName] AS [BookName], 
+    [Returned].[BookType] AS [BookType], 
+    [Returned].[Author] AS [Author], 
+    [Returned].[Price] AS [Price], 
+    [Returned].[DonatedBy] AS [DonatedBy], 
+    [Returned].[EMP_EPFNo] AS [EMP_EPFNo], 
+    [Returned].[EMP_Name] AS [EMP_Name], 
+    [Returned].[IssueDate] AS [IssueDate], 
+    [Returned].[ReturnDate] AS [ReturnDate], 
+    [Returned].[CollectDate] AS [CollectDate], 
+    [Returned].[Issueby] AS [Issueby], 
+    [Returned].[Collectby] AS [Collectby]
+    FROM [dbo].[Returned] AS [Returned]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ReturnPending" EntityType="Self.ReturnPending" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReturnPending].[BookID] AS [BookID], 
+    [ReturnPending].[BookName] AS [BookName], 
+    [ReturnPending].[BookType] AS [BookType], 
+    [ReturnPending].[Author] AS [Author], 
+    [ReturnPending].[Price] AS [Price], 
+    [ReturnPending].[DonatedBy] AS [DonatedBy], 
+    [ReturnPending].[IssueDate] AS [IssueDate], 
+    [ReturnPending].[ReturnDate] AS [ReturnDate], 
+    [ReturnPending].[EMP_EPFNo] AS [EMP_EPFNo], 
+    [ReturnPending].[EMP_Name] AS [EMP_Name]
+    FROM [dbo].[ReturnPending] AS [ReturnPending]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BookIssueTable_BooksTable" Association="Self.FK_BookIssueTable_BooksTable">
+            <End Role="BooksTable" EntitySet="BooksTable" />
+            <End Role="BookIssueTable" EntitySet="BookIssueTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookIssueTable_EmployeeHRMS" Association="Self.FK_BookIssueTable_EmployeeHRMS">
+            <End Role="EmployeeHRMS" EntitySet="EmployeeHRMS" />
+            <End Role="BookIssueTable" EntitySet="BookIssueTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BooksTable_BooksTable" Association="Self.FK_BooksTable_BooksTable">
+            <End Role="BooksTable" EntitySet="BooksTable" />
+            <End Role="BooksTable1" EntitySet="BooksTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BooksTable_BookTypesTable" Association="Self.FK_BooksTable_BookTypesTable">
+            <End Role="BookTypesTable" EntitySet="BookTypesTable" />
+            <End Role="BooksTable" EntitySet="BooksTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BooksTable_UserTable" Association="Self.FK_BooksTable_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="BooksTable" EntitySet="BooksTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_UserTypesTable" Association="Self.FK_UserTable_UserTypesTable">
+            <End Role="UserTypesTable" EntitySet="UserTypesTable" />
+            <End Role="UserTable" EntitySet="UserTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CMPK_LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookIssueTable">
+          <Key>
+            <PropertyRef Name="IBID" />
+          </Key>
+          <Property Name="IBID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="EMP_EPFNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CollectDate" Type="DateTime" Precision="0" />
+          <Property Name="Collectby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Issueby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BooksTable" Relationship="Self.FK_BookIssueTable_BooksTable" FromRole="BookIssueTable" ToRole="BooksTable" />
+          <NavigationProperty Name="EmployeeHRM" Relationship="Self.FK_BookIssueTable_EmployeeHRMS" FromRole="BookIssueTable" ToRole="EmployeeHRMS" />
+        </EntityType>
+        <EntityType Name="BooksTable">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BookTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="DonatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Availability" Type="Boolean" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookIssueTables" Relationship="Self.FK_BookIssueTable_BooksTable" FromRole="BooksTable" ToRole="BookIssueTable" />
+          <NavigationProperty Name="BooksTable1" Relationship="Self.FK_BooksTable_BooksTable" FromRole="BooksTable" ToRole="BooksTable1" />
+          <NavigationProperty Name="BooksTable2" Relationship="Self.FK_BooksTable_BooksTable" FromRole="BooksTable1" ToRole="BooksTable" />
+          <NavigationProperty Name="BookTypesTable" Relationship="Self.FK_BooksTable_BookTypesTable" FromRole="BooksTable" ToRole="BookTypesTable" />
+          <NavigationProperty Name="UserTable" Relationship="Self.FK_BooksTable_UserTable" FromRole="BooksTable" ToRole="UserTable" />
+        </EntityType>
+        <EntityType Name="BookTypesTable">
+          <Key>
+            <PropertyRef Name="BookTypeID" />
+          </Key>
+          <Property Name="BookTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BooksTables" Relationship="Self.FK_BooksTable_BookTypesTable" FromRole="BookTypesTable" ToRole="BooksTable" />
+        </EntityType>
+        <EntityType Name="EmployeeHRM">
+          <Key>
+            <PropertyRef Name="EMP_EPFNo" />
+          </Key>
+          <Property Name="EID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMP_EPFNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMP_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMP_SECID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="BookIssueTables" Relationship="Self.FK_BookIssueTable_EmployeeHRMS" FromRole="EmployeeHRMS" ToRole="BookIssueTable" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BooksTables" Relationship="Self.FK_BooksTable_UserTable" FromRole="UserTable" ToRole="BooksTable" />
+          <NavigationProperty Name="UserTypesTable" Relationship="Self.FK_UserTable_UserTypesTable" FromRole="UserTable" ToRole="UserTypesTable" />
+        </EntityType>
+        <EntityType Name="UserTypesTable">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserTables" Relationship="Self.FK_UserTable_UserTypesTable" FromRole="UserTypesTable" ToRole="UserTable" />
+        </EntityType>
+        <Association Name="FK_BookIssueTable_BooksTable">
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="1" />
+          <End Role="BookIssueTable" Type="Self.BookIssueTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BooksTable">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="BookIssueTable">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookIssueTable_EmployeeHRMS">
+          <End Role="EmployeeHRMS" Type="Self.EmployeeHRM" Multiplicity="1" />
+          <End Role="BookIssueTable" Type="Self.BookIssueTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeHRMS">
+              <PropertyRef Name="EMP_EPFNo" />
+            </Principal>
+            <Dependent Role="BookIssueTable">
+              <PropertyRef Name="EMP_EPFNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BooksTable_BooksTable">
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="1" />
+          <End Role="BooksTable1" Type="Self.BooksTable" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BooksTable">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="BooksTable1">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BooksTable_BookTypesTable">
+          <End Role="BookTypesTable" Type="Self.BookTypesTable" Multiplicity="1" />
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookTypesTable">
+              <PropertyRef Name="BookTypeID" />
+            </Principal>
+            <Dependent Role="BooksTable">
+              <PropertyRef Name="BookTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BooksTable_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="1" />
+          <End Role="BooksTable" Type="Self.BooksTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BooksTable">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTable_UserTypesTable">
+          <End Role="UserTypesTable" Type="Self.UserTypesTable" Multiplicity="1" />
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypesTable">
+              <PropertyRef Name="UserTypeID" />
+            </Principal>
+            <Dependent Role="UserTable">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CMPK_LMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookIssueTables" EntityType="Self.BookIssueTable" />
+          <EntitySet Name="BooksTables" EntityType="Self.BooksTable" />
+          <EntitySet Name="BookTypesTables" EntityType="Self.BookTypesTable" />
+          <EntitySet Name="EmployeeHRMS" EntityType="Self.EmployeeHRM" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="UserTables" EntityType="Self.UserTable" />
+          <EntitySet Name="UserTypesTables" EntityType="Self.UserTypesTable" />
+          <AssociationSet Name="FK_BookIssueTable_BooksTable" Association="Self.FK_BookIssueTable_BooksTable">
+            <End Role="BooksTable" EntitySet="BooksTables" />
+            <End Role="BookIssueTable" EntitySet="BookIssueTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookIssueTable_EmployeeHRMS" Association="Self.FK_BookIssueTable_EmployeeHRMS">
+            <End Role="EmployeeHRMS" EntitySet="EmployeeHRMS" />
+            <End Role="BookIssueTable" EntitySet="BookIssueTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BooksTable_BooksTable" Association="Self.FK_BooksTable_BooksTable">
+            <End Role="BooksTable" EntitySet="BooksTables" />
+            <End Role="BooksTable1" EntitySet="BooksTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BooksTable_BookTypesTable" Association="Self.FK_BooksTable_BookTypesTable">
+            <End Role="BookTypesTable" EntitySet="BookTypesTables" />
+            <End Role="BooksTable" EntitySet="BooksTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BooksTable_UserTable" Association="Self.FK_BooksTable_UserTable">
+            <End Role="UserTable" EntitySet="UserTables" />
+            <End Role="BooksTable" EntitySet="BooksTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTable_UserTypesTable" Association="Self.FK_UserTable_UserTypesTable">
+            <End Role="UserTypesTable" EntitySet="UserTypesTables" />
+            <End Role="UserTable" EntitySet="UserTables" />
+          </AssociationSet>
+          <EntitySet Name="AllissueBooks" EntityType="CMPK_LMSModel.AllissueBook" />
+          <EntitySet Name="Booksviews" EntityType="CMPK_LMSModel.Booksview" />
+          <EntitySet Name="Returneds" EntityType="CMPK_LMSModel.Returned" />
+          <EntitySet Name="ReturnPendings" EntityType="CMPK_LMSModel.ReturnPending" />
+        </EntityContainer>
+        <EntityType Name="AllissueBook">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="EMP_EPFNo" />
+            <PropertyRef Name="EMP_Name" />
+            <PropertyRef Name="IssueDate" />
+            <PropertyRef Name="ReturnDate" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="DonatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_EPFNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Collect_Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Booksview">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="DonatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Available" Type="Int32" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Returned">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="EMP_EPFNo" />
+            <PropertyRef Name="EMP_Name" />
+            <PropertyRef Name="IssueDate" />
+            <PropertyRef Name="ReturnDate" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BookType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="DonatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_EPFNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CollectDate" Type="DateTime" Precision="0" />
+          <Property Name="Issueby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Collectby" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ReturnPending">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="BookName" />
+            <PropertyRef Name="BookType" />
+            <PropertyRef Name="Author" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="IssueDate" />
+            <PropertyRef Name="ReturnDate" />
+            <PropertyRef Name="EMP_EPFNo" />
+            <PropertyRef Name="EMP_Name" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BookType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="DonatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EMP_EPFNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CMPK_LMSModelStoreContainer" CdmEntityContainer="CMPK_LMSEntities">
+          <EntitySetMapping Name="BookIssueTables">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.BookIssueTable">
+              <MappingFragment StoreEntitySet="BookIssueTable">
+                <ScalarProperty Name="IBID" ColumnName="IBID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="EMP_EPFNo" ColumnName="EMP_EPFNo" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CollectDate" ColumnName="CollectDate" />
+                <ScalarProperty Name="Collectby" ColumnName="Collectby" />
+                <ScalarProperty Name="Issueby" ColumnName="Issueby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BooksTables">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.BooksTable">
+              <MappingFragment StoreEntitySet="BooksTable">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookTypeID" ColumnName="BookTypeID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="DonatedBy" ColumnName="DonatedBy" />
+                <ScalarProperty Name="Availability" ColumnName="Availability" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookTypesTables">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.BookTypesTable">
+              <MappingFragment StoreEntitySet="BookTypesTable">
+                <ScalarProperty Name="BookTypeID" ColumnName="BookTypeID" />
+                <ScalarProperty Name="BookType" ColumnName="BookType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeHRMS">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.EmployeeHRM">
+              <MappingFragment StoreEntitySet="EmployeeHRMS">
+                <ScalarProperty Name="EID" ColumnName="EID" />
+                <ScalarProperty Name="EMP_EPFNo" ColumnName="EMP_EPFNo" />
+                <ScalarProperty Name="EMP_Name" ColumnName="EMP_Name" />
+                <ScalarProperty Name="EMP_SECID" ColumnName="EMP_SECID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTables">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.UserTable">
+              <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypesTables">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.UserTypesTable">
+              <MappingFragment StoreEntitySet="UserTypesTable">
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllissueBooks">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.AllissueBook">
+              <MappingFragment StoreEntitySet="AllissueBooks">
+                <ScalarProperty Name="Collect_Status" ColumnName="Collect_Status" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="EMP_Name" ColumnName="EMP_Name" />
+                <ScalarProperty Name="EMP_EPFNo" ColumnName="EMP_EPFNo" />
+                <ScalarProperty Name="DonatedBy" ColumnName="DonatedBy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="BookType" ColumnName="BookType" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Booksviews">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.Booksview">
+              <MappingFragment StoreEntitySet="Booksview">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="DonatedBy" ColumnName="DonatedBy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="BookType" ColumnName="BookType" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Returneds">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.Returned">
+              <MappingFragment StoreEntitySet="Returned">
+                <ScalarProperty Name="Collectby" ColumnName="Collectby" />
+                <ScalarProperty Name="Issueby" ColumnName="Issueby" />
+                <ScalarProperty Name="CollectDate" ColumnName="CollectDate" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="EMP_Name" ColumnName="EMP_Name" />
+                <ScalarProperty Name="EMP_EPFNo" ColumnName="EMP_EPFNo" />
+                <ScalarProperty Name="DonatedBy" ColumnName="DonatedBy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookType" ColumnName="BookType" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnPendings">
+            <EntityTypeMapping TypeName="CMPK_LMSModel.ReturnPending">
+              <MappingFragment StoreEntitySet="ReturnPending">
+                <ScalarProperty Name="EMP_Name" ColumnName="EMP_Name" />
+                <ScalarProperty Name="EMP_EPFNo" ColumnName="EMP_EPFNo" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="DonatedBy" ColumnName="DonatedBy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookType" ColumnName="BookType" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
